@@ -15,6 +15,7 @@ import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent
+import net.minecraftforge.fml.common.Loader
 
 @SideOnly(Side.CLIENT)
 object WaypointUtil {

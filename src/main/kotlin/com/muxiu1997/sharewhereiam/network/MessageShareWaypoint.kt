@@ -8,7 +8,6 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import io.netty.buffer.ByteBuf
-import journeymap.client.model.Waypoint
 
 class MessageShareWaypoint : IMessage {
   lateinit var playerName: String
@@ -53,10 +52,11 @@ class MessageShareWaypoint : IMessage {
 
       @SideOnly(Side.CLIENT)
       private fun handleClientSideMessage(message: MessageShareWaypoint) {
-        WaypointUtil.addShareWaypointChat(
-            message.playerName,
-            Waypoint.fromString(message.waypointJson),
-            message.additionalInformation)
+        if (WaypointUtil.isJourneyMapLoaded)
+          WaypointUtil.addShareWaypointChat(
+              message.playerName,
+              WaypointUtil.waypointFromString(message.waypointJson), // Dereferences JourneyMap class import to stop crashes on clients that don't have JourneyMap installed.
+              message.additionalInformation)
       }
 
       private fun handleServerSideMessage(message: MessageShareWaypoint) {

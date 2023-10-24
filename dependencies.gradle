@@ -1,10 +1,10 @@
 dependencies {
     api 'com.github.GTNewHorizons:Forgelin:1.9.7-GTNH'
 
-    compileOnly('com.github.GTNewHorizons:NotEnoughItems:2.3.25-GTNH:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:NotEnoughItems:2.4.5-GTNH:dev') { transitive = false }
     compileOnly('curse.maven:journeymap-32274:2367915') { transitive = false }
 
-    compileOnly('com.github.GTNewHorizons:VisualProspecting:1.0.37:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:VisualProspecting:1.2.0:dev') { transitive = false }
 
     implementation project(':localization-generator')
     ksp project(':localization-generator')

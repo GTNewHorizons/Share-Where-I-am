@@ -15,3 +15,11 @@ idea {
         generatedSourceDirs = generatedSourceDirs + file('build/generated/ksp/main/kotlin') + file('build/generated/ksp/test/kotlin')
     }
 }
+
+//configurations {
+//    kspPatchedMcKotlin {
+//        attributes {
+//            attribute(com.gtnewhorizons.retrofuturagradle.ObfuscationAttribute.OBFUSCATION_ATTRIBUTE, com.gtnewhorizons.retrofuturagradle.ObfuscationAttribute.getNoMinecraft(objects))
+//        }
+//    }
+//}

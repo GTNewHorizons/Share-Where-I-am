@@ -15,6 +15,7 @@ import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent
+import net.minecraftforge.fml.common.Loader
 
 @SideOnly(Side.CLIENT)
 object WaypointUtil {
@@ -150,4 +151,13 @@ object WaypointUtil {
                                 ClickEvent.Action.RUN_COMMAND,
                                 "/toggletempbeacon $waypointBase64"))))
   }
+  /**
+    * Dereferences JourneyMap class to avoid crashes on clients that don't have JourneyMap installed.
+    */
+  fun waypointFromString(s: String): Waypoint {
+      return Waypoint.fromString(s);
+  }
+  
+  // Caches isModLoaded result to remove overhead from repeated calls.
+  val isJourneyMapLoaded: Boolean = Loader.isModLoaded("journeymap");
 }

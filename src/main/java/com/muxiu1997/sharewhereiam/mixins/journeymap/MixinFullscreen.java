@@ -4,12 +4,6 @@ import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
 import javax.annotation.Nullable;
 
-import journeymap.client.Constants;
-import journeymap.client.model.Waypoint;
-import journeymap.client.ui.component.JmUI;
-import journeymap.client.ui.fullscreen.Fullscreen;
-import journeymap.client.ui.fullscreen.MapChat;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 
@@ -25,6 +19,12 @@ import com.muxiu1997.sharewhereiam.localization.Lang;
 import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint;
 import com.muxiu1997.sharewhereiam.util.VPWaypointUtil;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
+
+import journeymap.client.Constants;
+import journeymap.client.model.Waypoint;
+import journeymap.client.ui.component.JmUI;
+import journeymap.client.ui.fullscreen.Fullscreen;
+import journeymap.client.ui.fullscreen.MapChat;
 
 @SuppressWarnings("UnusedMixin")
 @Mixin(Fullscreen.class)

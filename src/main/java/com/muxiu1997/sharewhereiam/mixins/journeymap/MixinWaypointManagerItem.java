@@ -2,10 +2,6 @@ package com.muxiu1997.sharewhereiam.mixins.journeymap;
 
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
-import journeymap.client.model.Waypoint;
-import journeymap.client.ui.component.Button;
-import journeymap.client.ui.waypoint.WaypointManagerItem;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 
@@ -19,6 +15,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.muxiu1997.sharewhereiam.localization.Lang;
 import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
+
+import journeymap.client.model.Waypoint;
+import journeymap.client.ui.component.Button;
+import journeymap.client.ui.waypoint.WaypointManagerItem;
 
 @SuppressWarnings("UnusedMixin")
 @Mixin(WaypointManagerItem.class)

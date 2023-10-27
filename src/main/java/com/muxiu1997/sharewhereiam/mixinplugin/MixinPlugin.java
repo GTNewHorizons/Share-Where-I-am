@@ -10,14 +10,14 @@ import java.util.Set;
 
 import net.minecraft.launchwrapper.Launch;
 
+import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
-import org.spongepowered.libraries.org.objectweb.asm.tree.ClassNode;
-import ru.timeconqueror.spongemixins.MinecraftURLClassPath;
-
 import com.google.common.io.Files;
+
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
+import ru.timeconqueror.spongemixins.MinecraftURLClassPath;
 
 public class MixinPlugin implements IMixinConfigPlugin {
 

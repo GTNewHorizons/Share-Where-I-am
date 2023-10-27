@@ -1,10 +1,11 @@
 package com.muxiu1997.sharewhereiam.util
 
 import com.muxiu1997.sharewhereiam.localization.Lang
+import cpw.mods.fml.common.Loader
 import cpw.mods.fml.relauncher.Side
 import cpw.mods.fml.relauncher.SideOnly
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Base64
 import journeymap.client.cartography.RGB.WHITE_RGB
 import journeymap.client.model.Waypoint
 import net.minecraft.client.Minecraft
@@ -15,7 +16,6 @@ import net.minecraft.util.ChatComponentText
 import net.minecraft.util.ChatStyle
 import net.minecraft.util.EnumChatFormatting
 import net.minecraft.util.IChatComponent
-import net.minecraftforge.fml.common.Loader
 
 @SideOnly(Side.CLIENT)
 object WaypointUtil {
@@ -152,12 +152,12 @@ object WaypointUtil {
                                 "/toggletempbeacon $waypointBase64"))))
   }
   /**
-    * Dereferences JourneyMap class to avoid crashes on clients that don't have JourneyMap installed.
-    */
+   * Dereferences JourneyMap class to avoid crashes on clients that don't have JourneyMap installed.
+   */
   fun waypointFromString(s: String): Waypoint {
-      return Waypoint.fromString(s);
+    return Waypoint.fromString(s)
   }
-  
+
   // Caches isModLoaded result to remove overhead from repeated calls.
-  val isJourneyMapLoaded: Boolean = Loader.isModLoaded("journeymap");
+  val isJourneyMapLoaded: Boolean = Loader.isModLoaded("journeymap")
 }

@@ -1,6 +1,10 @@
 package com.muxiu1997.sharewhereiam.loader
 
-import com.muxiu1997.sharewhereiam.network.*
+import com.muxiu1997.sharewhereiam.network.IClientSideHandler
+import com.muxiu1997.sharewhereiam.network.IServerSideHandler
+import com.muxiu1997.sharewhereiam.network.MessageMarkWaypoint
+import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint
+import com.muxiu1997.sharewhereiam.network.network
 import cpw.mods.fml.common.network.simpleimpl.IMessage
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler
 import cpw.mods.fml.relauncher.Side

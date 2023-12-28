@@ -19,7 +19,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 public class ShareWhereIAm {
 
     @SuppressWarnings("unused")
-    public static final Logger logger = LogManager.getLogger(Tags.MODID);
+    public static final Logger logger = LogManager.getLogger("sharewhereiam");
 
     @SidedProxy(
             clientSide = "com.muxiu1997.sharewhereiam.proxy.ClientProxy",

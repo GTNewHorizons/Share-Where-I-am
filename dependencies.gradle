@@ -4,7 +4,7 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:NotEnoughItems:2.4.5-GTNH:dev') { transitive = false }
     compileOnly('curse.maven:journeymap-32274:2367915') { transitive = false }
 
-    compileOnly('com.github.GTNewHorizons:VisualProspecting:1.2.0:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:VisualProspecting:1.2.1:dev') { transitive = false }
 
     implementation project(':localization-generator')
     ksp project(':localization-generator')

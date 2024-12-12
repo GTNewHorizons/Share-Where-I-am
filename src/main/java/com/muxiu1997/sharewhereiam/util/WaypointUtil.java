@@ -34,7 +34,6 @@ public class WaypointUtil {
 
     public static PlayerWaypoint waypointOfRayTrace() {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-        // Assuming rayTrace is a method to get the player's looking position
         MovingObjectPosition position = player.rayTrace(128.0, 1.0f);
         Waypoint waypoint = Waypoint.at(
                 position.blockX,
@@ -56,8 +55,6 @@ public class WaypointUtil {
             this.player = player;
             this.waypoint = waypoint;
         }
-
-        // Getter methods for player and waypoint can be added if needed
     }
 
     public static String toBase64(Waypoint waypoint) {

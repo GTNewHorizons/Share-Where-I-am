@@ -53,9 +53,6 @@ public class MessageMarkWaypoint implements IMessage {
                 case SERVER:
                     handleServerSideMessage(message);
                     break;
-                default:
-                    // No action for other sides
-                    break;
             }
             return null;
         }

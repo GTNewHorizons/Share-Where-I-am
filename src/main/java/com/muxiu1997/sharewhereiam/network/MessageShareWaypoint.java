@@ -68,8 +68,8 @@ public class MessageShareWaypoint implements IMessage {
                 WaypointUtil.addShareWaypointChat(
                         message.playerName,
                         WaypointUtil.waypointFromString(message.waypointJson), // Dereferences JourneyMap class import
-                                                                               // to stop crashes on
-                        // clients that don't have JourneyMap installed.
+                                                                               // to stop crashes on clients that don't
+                                                                               // have JourneyMap installed.
                         message.additionalInformation);
             }
         }

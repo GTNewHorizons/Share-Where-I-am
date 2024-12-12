@@ -19,13 +19,7 @@ public enum Mixins {
                     "journeymap.MixinFullscreen",
                     "journeymap.MixinRenderWaypointBeacon",
                     "journeymap.MixinWaypointManagerItem",
-                    "journeymap.MixinWaypointStore")),
-    NAVIGATOR_(new Builder("Navigator integration").addTargetedMod(TargetedMod.NAVIGATOR).setSide(Side.CLIENT)
-             .setPhase(Phase.LATE).addMixinClasses(
-                    "navigator.HoveredDrawStepAccessor",
-                    "navigator.HoveredRenderStepAccessor"
-            ));
-
+                    "journeymap.MixinWaypointStore"));
 
     private final List<String> mixinClasses;
     private final Supplier<Boolean> applyIf;

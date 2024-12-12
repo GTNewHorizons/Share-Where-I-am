@@ -5,8 +5,7 @@ public enum TargetedMod {
     VANILLA("Minecraft", null),
     JOURNEYMAP("JourneyMap", null, "journeymap"),
     XAEROMINIMAP("Xaero's Minimap", "xaero.common.core.XaeroMinimapPlugin", "XaeroMinimap"),
-    XAEROWORLDMAP("Xaero's World Map", "xaero.map.core.XaeroWorldMapPlugin", "XaeroWorldMap"),
-    NAVIGATOR("Navigator","com.gtnewhorizons.navigator.core","navigator");
+    XAEROWORLDMAP("Xaero's World Map", "xaero.map.core.XaeroWorldMapPlugin", "XaeroWorldMap");
 
     /** The "name" in the @Mod annotation */
     public final String modName;

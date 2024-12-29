@@ -1,11 +1,13 @@
 dependencies {
-    api 'com.github.GTNewHorizons:Forgelin:1.9.8-GTNH'
 
-    compileOnly('com.github.GTNewHorizons:NotEnoughItems:2.5.4-GTNH:dev') { transitive = false }
-    compileOnly('curse.maven:journeymap-32274:2367915') { transitive = false }
 
-    compileOnly('com.github.GTNewHorizons:VisualProspecting:1.2.4:dev') { transitive = false }
 
-    implementation project(':localization-generator')
-    ksp project(':localization-generator')
+    compileOnly('com.github.GTNewHorizons:NotEnoughItems:2.7.0-GTNH:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:VisualProspecting:1.3.28:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:Navigator:1.0.15:dev') { transitive = false }
+    compileOnly('curse.maven:journeymap-32274:5769353')
+    compileOnly('curse.maven:xaeros-minimap-263420:5637000')
+    compileOnly('curse.maven:xaeros-world-map-317780:5658209')
+
+
 }

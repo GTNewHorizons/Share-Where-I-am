@@ -17,7 +17,6 @@ import journeymap.client.model.Waypoint;
 public abstract class CommandWaypointBase extends CommandBase {
 
     final protected String commandName;
-    protected String commandUsage;
 
     public CommandWaypointBase(@Nonnull String commandName) {
         super();
@@ -44,7 +43,7 @@ public abstract class CommandWaypointBase extends CommandBase {
     @Override
     @Nonnull
     public String getCommandUsage(ICommandSender sender) {
-        return commandUsage;
+        return "";
     }
 
     @Nonnull
@@ -60,12 +59,16 @@ public abstract class CommandWaypointBase extends CommandBase {
 
     protected void ensureArgsLength(@Nullable String[] args, int min, int max) throws CommandException {
         final int argsLength = args != null ? args.length : 0;
-        if (argsLength < min || argsLength > max) new CommandException(commandUsage);
+        if (argsLength < min || argsLength > max) throw getCommandException();
     }
 
     protected void ensureArgsLength(@Nullable String[] args, int length) throws CommandException {
         final int argsLength = args != null ? args.length : 0;
-        if (argsLength != length) new CommandException(commandUsage);
+        if (argsLength != length) throw getCommandException();
     }
 
+    @Nonnull
+    public CommandException getCommandException() {
+        return new CommandException("sharewhereiam.command." + this.getCommandName() + ".usage");
+    }
 }

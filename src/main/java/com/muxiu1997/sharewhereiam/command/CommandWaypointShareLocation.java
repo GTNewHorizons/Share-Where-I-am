@@ -13,8 +13,6 @@ import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
 public class CommandWaypointShareLocation extends CommandWaypointBase {
 
-    public static CommandWaypointShareLocation INSTANCE = new CommandWaypointShareLocation();
-
     public CommandWaypointShareLocation() {
         super("sharewhereiam");
     }
@@ -27,7 +25,8 @@ public class CommandWaypointShareLocation extends CommandWaypointBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         ensureArgsLength(args, 0);
-        assert sender instanceof EntityPlayer;
-        network.sendToServer(new MessageShareWaypoint(WaypointUtil.waypointOfLocation()));
+        if (sender instanceof EntityPlayer) {
+            network.sendToServer(new MessageShareWaypoint(WaypointUtil.waypointOfLocation()));
+        }
     }
 }

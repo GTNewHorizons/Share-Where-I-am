@@ -1,8 +1,9 @@
-package com.muxiu1997.sharewhereiam.mixins;
+package com.muxiu1997.sharewhereiam.mixinplugin;
 
 public enum TargetedMod {
 
     VANILLA("Minecraft", null),
+    NAVIGATOR("Navigator", null, "navigator"),
     JOURNEYMAP("JourneyMap", null, "journeymap"),
     XAEROMINIMAP("Xaero's Minimap", "xaero.common.core.XaeroMinimapPlugin", "XaeroMinimap"),
     XAEROWORLDMAP("Xaero's World Map", "xaero.map.core.XaeroWorldMapPlugin", "XaeroWorldMap");

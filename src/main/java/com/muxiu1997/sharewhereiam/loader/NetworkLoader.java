@@ -11,8 +11,6 @@ import cpw.mods.fml.relauncher.Side;
 
 public class NetworkLoader {
 
-    public static final NetworkLoader INSTANCE = new NetworkLoader();
-
     private static int nextID = 0;
 
     public static void load() {

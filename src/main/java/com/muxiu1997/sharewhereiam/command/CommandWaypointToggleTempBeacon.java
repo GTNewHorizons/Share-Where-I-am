@@ -11,8 +11,6 @@ import journeymap.client.model.Waypoint;
 
 public class CommandWaypointToggleTempBeacon extends CommandWaypointBase {
 
-    public static CommandWaypointToggleTempBeacon INSTANCE = new CommandWaypointToggleTempBeacon();
-
     public CommandWaypointToggleTempBeacon() {
         super("toggletempbeacon");
     }

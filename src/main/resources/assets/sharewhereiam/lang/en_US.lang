@@ -1,6 +1,6 @@
-sharewhereiam.command.usage=Usage: /savewaypoint <waypoint code> [neet to open editor? default: true]
-sharewhereiam.command.save.success=Waypoint saved
-sharewhereiam.command.save.exists=Waypoint exists, can't save
+sharewhereiam.command.savewaypoint.usage=Usage: /savewaypoint <waypoint code> [neet to open editor? default: true]
+sharewhereiam.command.savewaypoint.save.success=Waypoint saved
+sharewhereiam.command.savewaypoint.save.exists=Waypoint exists, can't save
 sharewhereiam.command.sharewhereiam.usage=Usage: /sharewhereiam
 sharewhereiam.command.toggletempbeacon.usage=Usage: /toggletempbeacon [waypoint code]
 

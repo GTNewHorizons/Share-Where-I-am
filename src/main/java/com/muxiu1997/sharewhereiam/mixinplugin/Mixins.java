@@ -1,4 +1,4 @@
-package com.muxiu1997.sharewhereiam.mixins;
+package com.muxiu1997.sharewhereiam.mixinplugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +14,15 @@ import cpw.mods.fml.relauncher.FMLLaunchHandler;
 
 public enum Mixins {
 
-    JOURNEYMAP_(new Builder("JourneyMap integration").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.CLIENT)
+    JOURNEYMAP(new Builder("JourneyMap integration").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.CLIENT)
             .setPhase(Phase.LATE).addMixinClasses(
                     "journeymap.MixinFullscreen",
                     "journeymap.MixinRenderWaypointBeacon",
                     "journeymap.MixinWaypointManagerItem",
-                    "journeymap.MixinWaypointStore"));
+                    "journeymap.MixinWaypointStore")),
+
+    NAVIGATOR(new Builder("Navigator integration").addTargetedMod(TargetedMod.NAVIGATOR).setSide(Side.CLIENT)
+            .setPhase(Phase.LATE).addMixinClasses("navigator.UniversalInteractableRendererAccessor"));
 
     private final List<String> mixinClasses;
     private final Supplier<Boolean> applyIf;

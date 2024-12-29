@@ -16,14 +16,12 @@ import journeymap.client.model.Waypoint;
 @SideOnly(Side.CLIENT)
 public class WaypointManager {
 
-    public static WaypointManager INSTANCE = new WaypointManager();
-
     public static Waypoint tempBeacon = null;
     private static final Map<String, TransientBeacon> transientBeaconCache = new HashMap<>();
 
     @Nullable
-    public Waypoint getTempBeacon() {
-        return this.tempBeacon;
+    public static Waypoint getTempBeacon() {
+        return tempBeacon;
     }
 
     public static boolean hasActiveTempBeacon() {

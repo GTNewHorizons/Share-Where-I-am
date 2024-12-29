@@ -15,7 +15,7 @@ import journeymap.client.model.Waypoint;
 public class WaypointMarker {
 
     public static void render(RenderWorldLastEvent event) {
-        List<Waypoint> transientBeacons = WaypointManager.INSTANCE.getTransientBeacons();
+        List<Waypoint> transientBeacons = WaypointManager.getTransientBeacons();
         if (transientBeacons.isEmpty()) return;
 
         float partialTicks = event.partialTicks;

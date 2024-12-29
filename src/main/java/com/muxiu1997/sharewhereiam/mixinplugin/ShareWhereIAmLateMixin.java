@@ -1,11 +1,10 @@
-package com.muxiu1997.sharewhereiam;
+package com.muxiu1997.sharewhereiam.mixinplugin;
 
 import java.util.List;
 import java.util.Set;
 
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
-import com.muxiu1997.sharewhereiam.mixins.Mixins;
 
 @LateMixin
 public class ShareWhereIAmLateMixin implements ILateMixinLoader {

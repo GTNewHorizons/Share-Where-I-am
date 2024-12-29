@@ -4,7 +4,6 @@ import net.minecraft.client.resources.I18n;
 
 public class Lang {
 
-    // Localized strings
     public static LocalizedString SAVE_WAYPOINT_USAGE;
     public static LocalizedString SAVE_WAYPOINT_SUCCESS;
     public static LocalizedString SAVE_WAYPOINT_EXISTS;
@@ -24,18 +23,16 @@ public class Lang {
     public static LocalizedString TEXT_DEFAULT_WAYPOINT_NAME;
     public static LocalizedString TEXT_JM_WAYPOINT_BUTTON;
 
-    // Constants for prefix
     private static final String PREFIX_COMMAND = "sharewhereiam.command";
     private static final String PREFIX_COMMAND_ERROR = "sharewhereiam.commanderror";
     private static final String PREFIX_CHAT = "sharewhereiam.chat";
     private static final String PREFIX_KEYBINDING = "sharewhereiam.keybinding";
     private static final String PREFIX_TEXT = "sharewhereiam.text";
 
-    // Initialize the localized strings
     static {
-        SAVE_WAYPOINT_USAGE = new LocalizedString(PREFIX_COMMAND + ".usage");
-        SAVE_WAYPOINT_SUCCESS = new LocalizedString(PREFIX_COMMAND + ".save.success");
-        SAVE_WAYPOINT_EXISTS = new LocalizedString(PREFIX_COMMAND + ".save.exists");
+        SAVE_WAYPOINT_USAGE = new LocalizedString(PREFIX_COMMAND + ".savewaypoint.usage");
+        SAVE_WAYPOINT_SUCCESS = new LocalizedString(PREFIX_COMMAND + ".savewaypoint.save.success");
+        SAVE_WAYPOINT_EXISTS = new LocalizedString(PREFIX_COMMAND + ".savewaypoint.save.exists");
         SHARE_WHERE_I_AM_USAGE = new LocalizedString(PREFIX_COMMAND + ".sharewhereiam.usage");
         TOGGLE_TEMP_BEACON_USAGE = new LocalizedString(PREFIX_COMMAND + ".toggletempbeacon.usage");
         ERROR_INVALID_WAYPOINT_CODE = new LocalizedString(PREFIX_COMMAND_ERROR + ".invalidcode");
@@ -53,7 +50,6 @@ public class Lang {
         TEXT_JM_WAYPOINT_BUTTON = new LocalizedString(PREFIX_TEXT + ".jm.waypoint.share");
     }
 
-    // LocalizedString class
     public static class LocalizedString {
 
         private final String key;
@@ -66,7 +62,6 @@ public class Lang {
             return key;
         }
 
-        // Method to translate the string using Minecraft's I18n system
         public String translate() {
             return I18n.format(key);
         }

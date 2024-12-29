@@ -1,4 +1,4 @@
-package com.muxiu1997.sharewhereiam.mixininterfaces;
+package com.muxiu1997.sharewhereiam.mixinplugin.interfaces;
 
 import journeymap.client.model.Waypoint;
 

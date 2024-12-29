@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import org.lwjgl.input.Keyboard;
 
-import com.muxiu1997.sharewhereiam.client.key.KeyShare;
+import com.muxiu1997.sharewhereiam.client.key.KeyBindings;
 import com.muxiu1997.sharewhereiam.integration.Mods;
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointMarker;
@@ -25,8 +25,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class EventHandler {
 
-    public static final EventHandler INSTANCE = new EventHandler();
-
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void handleEntityJoinWorld(EntityJoinWorldEvent event) {
@@ -40,7 +38,7 @@ public class EventHandler {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void handleKeyInput(InputEvent.KeyInputEvent event) {
-        if (!KeyShare.INSTANCE.isPressed()) return;
+        if (!KeyBindings.WaypointShare.isPressed()) return;
 
         if (Mods.JourneyMap.isLoaded()) {
             // Determine the waypoint based on Shift key state

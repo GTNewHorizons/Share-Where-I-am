@@ -1,7 +1,6 @@
 package com.muxiu1997.sharewhereiam.util;
 
 import java.awt.Color;
-import java.lang.reflect.Field;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,9 +11,9 @@ import com.gtnewhorizons.navigator.api.model.layers.LayerRenderer;
 import com.gtnewhorizons.navigator.api.model.layers.UniversalInteractableRenderer;
 import com.gtnewhorizons.navigator.api.model.steps.UniversalInteractableStep;
 import com.gtnewhorizons.navigator.api.model.waypoints.Waypoint;
+import com.muxiu1997.sharewhereiam.mixins.late.navigator.UniversalInteractableRendererAccessor;
 
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 public class VPWaypointUtil {
 
@@ -23,13 +22,8 @@ public class VPWaypointUtil {
     public static journeymap.client.model.Waypoint getHoveredWaypoint() {
         for (LayerRenderer layer : NavigatorApi.getActiveRenderersFor(SupportedMods.JourneyMap)) {
             if (layer instanceof UniversalInteractableRenderer) {
-                final Field FieldHoveredDrawStep = ReflectionHelper
-                        .findField(UniversalInteractableRenderer.class, "hoveredRenderStep");
-                @Nullable
-                UniversalInteractableStep<?> hoveredRenderStep = null;
-                try {
-                    hoveredRenderStep = (UniversalInteractableStep<?>) FieldHoveredDrawStep.get(layer);
-                } catch (Exception ignored) {}
+                UniversalInteractableStep<?> hoveredRenderStep = ((UniversalInteractableRendererAccessor) layer)
+                        .getHoveredRenderStep();
                 if (hoveredRenderStep != null) {
                     final Waypoint waypoint = hoveredRenderStep.getLocation().toWaypoint();
                     if (waypoint != null) {

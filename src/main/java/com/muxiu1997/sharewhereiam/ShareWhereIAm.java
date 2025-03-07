@@ -7,6 +7,7 @@ import com.muxiu1997.sharewhereiam.proxy.CommonProxy;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 
 @Mod(
@@ -24,6 +25,11 @@ public class ShareWhereIAm {
             clientSide = "com.muxiu1997.sharewhereiam.proxy.ClientProxy",
             serverSide = "com.muxiu1997.sharewhereiam.proxy.CommonProxy")
     public static CommonProxy proxy;
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent event) {
+        proxy.init(event);
+    }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {

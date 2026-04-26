@@ -21,19 +21,19 @@ public abstract class MixinRenderWaypointBeacon {
     static Minecraft mc;
 
     @Shadow(remap = false)
-    static void doRender(Waypoint waypoint) {}
+    static void doRenderNoFade(Waypoint waypoint) {}
 
-    @Inject(method = "renderAll", at = @At(value = "RETURN", remap = false), remap = false, require = 1)
-    private static void inject_renderAll(CallbackInfo callbackInfo) {
+    @Inject(method = "renderAll(F)V", at = @At(value = "RETURN", remap = false), remap = false, require = 1)
+    private static void inject_renderAll(float partialTicks, CallbackInfo callbackInfo) {
         if (WaypointManager.hasActiveTempBeacon()) {
             final Waypoint waypoint = WaypointManager.getTempBeacon();
             assert waypoint != null;
             if (waypoint.getDimensions().contains(mc.thePlayer.dimension)) {
-                doRender(waypoint);
+                doRenderNoFade(waypoint);
             }
         }
         for (Waypoint waypoint : WaypointManager.getTransientBeacons()) {
-            doRender(waypoint);
+            doRenderNoFade(waypoint);
         }
     }
 }

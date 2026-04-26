@@ -27,10 +27,10 @@ public abstract class MixinRenderWaypointBeacon {
     private static boolean skipFade = false;
 
     @ModifyVariable(
-        method = "doRender(Ljourneymap/client/model/Waypoint;F)V",
-        at = @At(value = "STORE"),
-        name = "fadeAlpha",
-        remap = false)
+            method = "doRender(Ljourneymap/client/model/Waypoint;F)V",
+            at = @At(value = "STORE"),
+            name = "fadeAlpha",
+            remap = false)
     private static float overrideFadeAlpha(float fadeAlpha) {
         return skipFade ? 1.0F : fadeAlpha;
     }

@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
@@ -23,17 +24,33 @@ public abstract class MixinRenderWaypointBeacon {
     @Shadow(remap = false)
     static void doRender(Waypoint waypoint) {}
 
-    @Inject(method = "renderAll", at = @At(value = "RETURN", remap = false), remap = false, require = 1)
-    private static void inject_renderAll(CallbackInfo callbackInfo) {
-        if (WaypointManager.hasActiveTempBeacon()) {
-            final Waypoint waypoint = WaypointManager.getTempBeacon();
-            assert waypoint != null;
-            if (waypoint.getDimensions().contains(mc.thePlayer.dimension)) {
+    private static boolean skipFade = false;
+
+    @ModifyVariable(
+            method = "doRender(Ljourneymap/client/model/Waypoint;F)V",
+            at = @At(value = "STORE"),
+            name = "fadeAlpha",
+            remap = false)
+    private static float overrideFadeAlpha(float fadeAlpha) {
+        return skipFade ? 1.0F : fadeAlpha;
+    }
+
+    @Inject(method = "renderAll(F)V", at = @At(value = "RETURN", remap = false), remap = false, require = 1)
+    private static void inject_renderAll(float partialTicks, CallbackInfo callbackInfo) {
+        skipFade = true;
+        try {
+            if (WaypointManager.hasActiveTempBeacon()) {
+                final Waypoint waypoint = WaypointManager.getTempBeacon();
+                assert waypoint != null;
+                if (waypoint.getDimensions().contains(mc.thePlayer.dimension)) {
+                    doRender(waypoint);
+                }
+            }
+            for (Waypoint waypoint : WaypointManager.getTransientBeacons()) {
                 doRender(waypoint);
             }
-        }
-        for (Waypoint waypoint : WaypointManager.getTransientBeacons()) {
-            doRender(waypoint);
+        } finally {
+            skipFade = false;
         }
     }
 }

@@ -37,7 +37,7 @@ public class CommandWaypointSave extends CommandWaypointBase {
             sender.addChatMessage(new ChatComponentText(Lang.SAVE_WAYPOINT_EXISTS.translate()));
             return;
         }
-        WaypointStore.instance().add(waypoint);
+        WaypointStore.instance().save(waypoint);
         sender.addChatMessage(new ChatComponentText(Lang.SAVE_WAYPOINT_SUCCESS.translate()));
     }
 

@@ -1,5 +1,5 @@
 dependencies {
-    compileOnly('com.github.GTNewHorizons:Navigator:1.1.2:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:Navigator:1.1.4:dev') { transitive = false }
     compileOnly('maven.modrinth:journeymap:v5.2.13')
     compileOnly('curse.maven:xaeros-minimap-263420:5637000')
     compileOnly('curse.maven:xaeros-world-map-317780:5658209')

@@ -1,5 +1,6 @@
 package com.muxiu1997.sharewhereiam;
 
+import com.muxiu1997.sharewhereiam.integration.Mods;
 import com.muxiu1997.sharewhereiam.proxy.CommonProxy;
 
 import cpw.mods.fml.common.Mod;
@@ -22,11 +23,11 @@ public class ShareWhereIAm {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        proxy.init(event);
+        if (Mods.isEnabled()) proxy.init(event);
     }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.postInit(event);
+        if (Mods.isEnabled()) proxy.postInit(event);
     }
 }

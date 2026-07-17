@@ -26,6 +26,6 @@ public enum Mods {
 
     public static boolean isEnabled() {
         return !Loader.isModLoaded("journeymap")
-                || Mods.class.getClassLoader().getResource("journeymap/api/v2/client/IClientAPI.class") == null;
+                || Mods.class.getClassLoader().getResource("journeymap/client/render/map/GridRenderer.class") != null;
     }
 }

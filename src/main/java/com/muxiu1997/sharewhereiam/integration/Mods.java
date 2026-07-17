@@ -19,8 +19,13 @@ public enum Mods {
 
     public boolean isLoaded() {
         if (loaded == null) {
-            loaded = Loader.isModLoaded(modid);
+            loaded = Loader.isModLoaded(modid) && (this != JourneyMap || isEnabled());
         }
         return loaded;
+    }
+
+    public static boolean isEnabled() {
+        return !Loader.isModLoaded("journeymap")
+                || Mods.class.getClassLoader().getResource("journeymap/api/v2/client/IClientAPI.class") == null;
     }
 }

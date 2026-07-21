@@ -3,6 +3,7 @@ package com.muxiu1997.sharewhereiam.integration.journeymap;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -19,13 +20,10 @@ public class WaypointMarker {
         if (transientBeacons.isEmpty()) return;
 
         float partialTicks = event.partialTicks;
-        Minecraft minecraft = Minecraft.getMinecraft();
-        double posX = minecraft.thePlayer.prevPosX
-                + (minecraft.thePlayer.posX - minecraft.thePlayer.prevPosX) * partialTicks;
-        double posY = minecraft.thePlayer.prevPosY
-                + (minecraft.thePlayer.posY - minecraft.thePlayer.prevPosY) * partialTicks;
-        double posZ = minecraft.thePlayer.prevPosZ
-                + (minecraft.thePlayer.posZ - minecraft.thePlayer.prevPosZ) * partialTicks;
+        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
+        double posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
+        double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
+        double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
 
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glPushMatrix();
@@ -36,6 +34,7 @@ public class WaypointMarker {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
+        GL11.glColor4d(255.0, 255.0, 255.0, 0.8);
 
         GL11.glBegin(GL11.GL_QUADS);
         for (Waypoint waypoint : transientBeacons) {
@@ -54,8 +53,6 @@ public class WaypointMarker {
         double x = waypoint.getX();
         double y = waypoint.getY();
         double z = waypoint.getZ();
-
-        GL11.glColor4d(255.0, 255.0, 255.0, 0.8);
 
         // NORTH
         GL11.glVertex3d(x, y + 1, z);
@@ -88,7 +85,9 @@ public class WaypointMarker {
         GL11.glVertex3d(x + 1, y + 1, z);
 
         // BOTTOM
+        GL11.glVertex3d(x, y, z);
         GL11.glVertex3d(x + 1, y, z);
         GL11.glVertex3d(x + 1, y, z + 1);
+        GL11.glVertex3d(x, y, z + 1);
     }
 }

@@ -3,7 +3,7 @@ package com.muxiu1997.sharewhereiam.integration.journeymap;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -20,10 +20,11 @@ public class WaypointMarker {
         if (transientBeacons.isEmpty()) return;
 
         float partialTicks = event.partialTicks;
-        EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-        double posX = player.prevPosX + (player.posX - player.prevPosX) * partialTicks;
-        double posY = player.prevPosY + (player.posY - player.prevPosY) * partialTicks;
-        double posZ = player.prevPosZ + (player.posZ - player.prevPosZ) * partialTicks;
+        EntityLivingBase viewEntity = Minecraft.getMinecraft().renderViewEntity;
+        if (viewEntity == null) return;
+        double posX = viewEntity.prevPosX + (viewEntity.posX - viewEntity.prevPosX) * partialTicks;
+        double posY = viewEntity.prevPosY + (viewEntity.posY - viewEntity.prevPosY) * partialTicks;
+        double posZ = viewEntity.prevPosZ + (viewEntity.posZ - viewEntity.prevPosZ) * partialTicks;
 
         GL11.glPushAttrib(GL11.GL_ALL_ATTRIB_BITS);
         GL11.glPushMatrix();

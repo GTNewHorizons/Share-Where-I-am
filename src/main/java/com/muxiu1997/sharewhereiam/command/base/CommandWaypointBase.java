@@ -11,8 +11,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 
 import com.muxiu1997.sharewhereiam.command.CommandError;
-
-import journeymap.client.model.Waypoint;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 
 public abstract class CommandWaypointBase extends CommandBase {
 
@@ -47,8 +46,8 @@ public abstract class CommandWaypointBase extends CommandBase {
     }
 
     @Nonnull
-    protected Waypoint parseWaypoint(@Nonnull String waypointCode) throws CommandException {
-        final Waypoint waypoint;
+    protected SharedWaypoint parseWaypoint(@Nonnull String waypointCode) throws CommandException {
+        final SharedWaypoint waypoint;
         try {
             waypoint = fromBase64(waypointCode);
         } catch (Exception ignored) {

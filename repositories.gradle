@@ -1,2 +1,6 @@
 repositories {
+    maven {
+        name = 'JourneyMap Maven'
+        url = 'https://maven.blamejared.com'
+    }
 }

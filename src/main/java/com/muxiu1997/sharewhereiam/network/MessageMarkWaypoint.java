@@ -12,7 +12,6 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import journeymap.client.model.Waypoint;
 
 public class MessageMarkWaypoint implements IMessage {
 
@@ -59,7 +58,8 @@ public class MessageMarkWaypoint implements IMessage {
 
         @SideOnly(Side.CLIENT)
         private void handleClientSideMessage(MessageMarkWaypoint message) {
-            WaypointManager.addTransientBeacon(message.playerName, Waypoint.fromString(message.waypointJson));
+            WaypointManager
+                    .addTransientBeacon(message.playerName, WaypointUtil.waypointFromString(message.waypointJson));
         }
 
         private void handleServerSideMessage(MessageMarkWaypoint message) {

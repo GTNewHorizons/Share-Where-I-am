@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.muxiu1997.sharewhereiam.integration.journeymap.v5.JourneyMapV5Integration;
 import com.muxiu1997.sharewhereiam.localization.Lang;
 import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
@@ -56,7 +57,11 @@ public abstract class MixinWaypointManagerItem {
     private void inject_clickScrollable(int mouseX, int mouseY, CallbackInfoReturnable<Boolean> mouseOver) {
         if (!mouseOver.getReturnValue() && this.buttonShare.mouseOver(mouseX, mouseY)) {
             final EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-            network.sendToServer(new MessageShareWaypoint(new WaypointUtil.PlayerWaypoint(player, this.waypoint)));
+            network.sendToServer(
+                    new MessageShareWaypoint(
+                            new WaypointUtil.PlayerWaypoint(
+                                    player,
+                                    JourneyMapV5Integration.fromWaypoint(this.waypoint))));
             mouseOver.setReturnValue(true);
         }
     }

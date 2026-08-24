@@ -8,15 +8,16 @@ import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import journeymap.client.model.Waypoint;
 
 @SideOnly(Side.CLIENT)
 public class WaypointMarker {
 
     public static void render(RenderWorldLastEvent event) {
-        List<Waypoint> transientBeacons = WaypointManager.getTransientBeacons();
+        List<SharedWaypoint> transientBeacons = WaypointManager.getTransientBeacons();
         if (transientBeacons.isEmpty()) return;
 
         float partialTicks = event.partialTicks;
@@ -38,7 +39,7 @@ public class WaypointMarker {
         GL11.glColor4d(255.0, 255.0, 255.0, 0.8);
 
         GL11.glBegin(GL11.GL_QUADS);
-        for (Waypoint waypoint : transientBeacons) {
+        for (SharedWaypoint waypoint : transientBeacons) {
             markWaypoint(waypoint);
         }
         GL11.glEnd();
@@ -50,7 +51,7 @@ public class WaypointMarker {
         GL11.glPopAttrib();
     }
 
-    private static void markWaypoint(Waypoint waypoint) {
+    private static void markWaypoint(SharedWaypoint waypoint) {
         double x = waypoint.getX();
         double y = waypoint.getY();
         double z = waypoint.getZ();

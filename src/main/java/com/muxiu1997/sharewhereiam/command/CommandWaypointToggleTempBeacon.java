@@ -6,8 +6,7 @@ import net.minecraft.command.ICommandSender;
 import com.muxiu1997.sharewhereiam.command.base.CommandWaypointBase;
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
 import com.muxiu1997.sharewhereiam.localization.Lang;
-
-import journeymap.client.model.Waypoint;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 
 public class CommandWaypointToggleTempBeacon extends CommandWaypointBase {
 
@@ -27,7 +26,7 @@ public class CommandWaypointToggleTempBeacon extends CommandWaypointBase {
             WaypointManager.clearActiveTempBeacon();
             return;
         }
-        Waypoint waypoint = parseWaypoint(args[0]);
+        SharedWaypoint waypoint = parseWaypoint(args[0]);
         WaypointManager.toggleActiveTempBeacon(waypoint);
     }
 }

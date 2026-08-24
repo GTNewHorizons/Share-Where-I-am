@@ -4,6 +4,7 @@ import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 import static com.muxiu1997.sharewhereiam.util.WaypointUtil.waypointOfLocation;
 import static com.muxiu1997.sharewhereiam.util.WaypointUtil.waypointOfRayTrace;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -31,6 +32,7 @@ public class EventHandler {
         if (event.world.isRemote && Mods.JourneyMap.isLoaded()) {
             if (event.entity instanceof EntityPlayer) {
                 WaypointManager.clearActiveTempBeacon();
+                WaypointManager.clearTransientBeacons();
             }
         }
     }
@@ -39,6 +41,7 @@ public class EventHandler {
     @SideOnly(Side.CLIENT)
     public void handleKeyInput(InputEvent.KeyInputEvent event) {
         if (!KeyBindings.WaypointShare.isPressed()) return;
+        if (Minecraft.getMinecraft().currentScreen != null) return;
 
         if (Mods.JourneyMap.isLoaded()) {
             // Determine the waypoint based on Shift key state

@@ -36,12 +36,14 @@ import journeymap.api.v2.common.event.FullscreenEventRegistry;
 import journeymap.api.v2.common.util.BlockPos;
 import journeymap.api.v2.common.waypoint.Waypoint;
 import journeymap.api.v2.common.waypoint.WaypointFactory;
+import journeymap.api.v2.common.waypoint.WaypointGroup;
 
 /** JourneyMap 6 integration implemented exclusively through its v2 plugin API. */
 @JourneyMapPlugin(apiVersion = IClientAPI.API_VERSION, dependencies = "sharewhereiam")
 public final class JourneyMapV6Plugin implements IClientPlugin {
 
     private static final String MOD_ID = "sharewhereiam";
+    private static final String TEMPORARY_GROUP_NAME = "Share Where I Am temporary";
     private static final long TRANSIENT_BEACON_DURATION = 3000L;
 
     private static IClientAPI api;
@@ -82,7 +84,7 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
     public static void setTemporaryBeacon(@Nullable SharedWaypoint waypoint) {
         removeWaypoint(temporaryBeacon);
         temporaryBeacon = waypoint == null ? null : createWaypoint(waypoint, false, false);
-        if (temporaryBeacon != null && api != null) api.addWaypoint(MOD_ID, temporaryBeacon);
+        if (temporaryBeacon != null) addTemporaryWaypoint(temporaryBeacon);
     }
 
     public static void addTransientBeacon(String playerName, SharedWaypoint waypoint) {
@@ -90,7 +92,7 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
         if (previous != null) removeWaypoint(previous.waypoint);
         Waypoint converted = createWaypoint(waypoint, false, false);
         transientBeacons.put(playerName, new TimedWaypoint(converted, Minecraft.getSystemTime()));
-        if (api != null) api.addWaypoint(MOD_ID, converted);
+        addTemporaryWaypoint(converted);
     }
 
     public static void clearTransientBeacons() {
@@ -186,6 +188,24 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
 
     private static void removeWaypoint(@Nullable Waypoint waypoint) {
         if (api != null && waypoint != null) api.removeWaypoint(MOD_ID, waypoint);
+    }
+
+    private static void addTemporaryWaypoint(Waypoint waypoint) {
+        if (api == null) return;
+
+        WaypointGroup group = api.getWaypointGroupByName(MOD_ID, TEMPORARY_GROUP_NAME);
+        if (group == null) {
+            group = WaypointFactory.createWaypointGroup(MOD_ID, TEMPORARY_GROUP_NAME);
+            group.setPersistent(false);
+            api.addWaypointGroup(group);
+            WaypointGroup registered = api.getWaypointGroup(group.getGuid());
+            if (!group.getGuid().equals(registered.getGuid())) return;
+            group = registered;
+        }
+
+        api.addWaypoint(MOD_ID, waypoint);
+        Waypoint added = api.getWaypoint(MOD_ID, waypoint.getGuid());
+        if (added != null) group.addWaypoint(added);
     }
 
     private static final class TimedWaypoint {

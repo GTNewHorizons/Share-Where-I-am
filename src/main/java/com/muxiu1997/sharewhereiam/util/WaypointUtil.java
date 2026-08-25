@@ -144,8 +144,4 @@ public class WaypointUtil {
             player.addChatComponentMessage(chatPartC);
         }
     }
-
-    public static SharedWaypoint waypointFromString(String s) {
-        return SharedWaypoint.fromString(s);
-    }
 }

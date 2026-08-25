@@ -25,10 +25,6 @@ public final class JourneyMapIntegration {
         return JourneyMapVersion.get() == JourneyMapVersion.V5;
     }
 
-    public static boolean isFullscreenMapActive() {
-        return JourneyMapVersion.get() == JourneyMapVersion.V6 && JourneyMapV6Plugin.isFullscreenMapActive();
-    }
-
     public static void setTemporaryBeacon(@Nullable SharedWaypoint waypoint) {
         if (JourneyMapVersion.get() == JourneyMapVersion.V6) JourneyMapV6Plugin.setTemporaryBeacon(waypoint);
     }

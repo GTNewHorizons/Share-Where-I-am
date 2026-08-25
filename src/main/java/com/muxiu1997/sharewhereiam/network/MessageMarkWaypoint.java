@@ -5,6 +5,7 @@ import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 import net.minecraft.client.Minecraft;
 
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -60,8 +61,7 @@ public class MessageMarkWaypoint implements IMessage {
 
         @SideOnly(Side.CLIENT)
         private void handleClientSideMessage(MessageMarkWaypoint message) {
-            WaypointManager
-                    .addTransientBeacon(message.playerName, WaypointUtil.waypointFromString(message.waypointJson));
+            WaypointManager.addTransientBeacon(message.playerName, SharedWaypoint.fromString(message.waypointJson));
         }
 
         private void handleServerSideMessage(MessageMarkWaypoint message) {

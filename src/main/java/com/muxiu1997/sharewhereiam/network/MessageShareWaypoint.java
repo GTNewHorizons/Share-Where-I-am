@@ -2,6 +2,8 @@ package com.muxiu1997.sharewhereiam.network;
 
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
+import net.minecraft.client.Minecraft;
+
 import com.muxiu1997.sharewhereiam.integration.Mods;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
@@ -54,7 +56,7 @@ public class MessageShareWaypoint implements IMessage {
         @Override
         public IMessage onMessage(MessageShareWaypoint message, MessageContext ctx) {
             if (ctx.side.isClient()) {
-                handleClientSideMessage(message);
+                Minecraft.getMinecraft().func_152344_a(() -> handleClientSideMessage(message));
             } else {
                 handleServerSideMessage(message);
             }

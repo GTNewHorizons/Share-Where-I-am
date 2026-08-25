@@ -2,6 +2,8 @@ package com.muxiu1997.sharewhereiam.network;
 
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
+import net.minecraft.client.Minecraft;
+
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
@@ -47,7 +49,7 @@ public class MessageMarkWaypoint implements IMessage {
         public IMessage onMessage(MessageMarkWaypoint message, MessageContext ctx) {
             switch (ctx.side) {
                 case CLIENT:
-                    handleClientSideMessage(message);
+                    Minecraft.getMinecraft().func_152344_a(() -> handleClientSideMessage(message));
                     break;
                 case SERVER:
                     handleServerSideMessage(message);

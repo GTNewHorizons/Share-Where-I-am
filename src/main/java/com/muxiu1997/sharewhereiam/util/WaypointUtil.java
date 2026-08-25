@@ -87,8 +87,12 @@ public class WaypointUtil {
                 .appendText(" ")
                 .appendSibling(
                         new ChatComponentText(
-                                String.format("(%d, %d, %d)", waypoint.getX(), waypoint.getY(), waypoint.getZ()))
-                                        .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY)))
+                                String.format(
+                                        "(%d, %d, %d)",
+                                        waypoint.getX(player.dimension),
+                                        waypoint.getY(),
+                                        waypoint.getZ(player.dimension)))
+                                                .setChatStyle(new ChatStyle().setColor(EnumChatFormatting.GRAY)))
                 .appendText(" ")
                 // appendSaveAction
                 .appendSibling(

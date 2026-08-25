@@ -1,5 +1,6 @@
 package com.muxiu1997.sharewhereiam.model;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -32,6 +33,11 @@ public final class SharedWaypoint {
     private SharedWaypoint() {}
 
     public SharedWaypoint(String name, int x, int y, int z, int color, int dimension) {
+        this(name, x, y, z, color, dimension, true, Collections.singleton(dimension));
+    }
+
+    public SharedWaypoint(String name, int x, int y, int z, int color, int dimension, boolean enabled,
+            Collection<Integer> dimensions) {
         this.name = name == null ? x + ", " + z : name;
         this.icon = "waypoint-normal.png";
         this.x = dimension == -1 ? x * 8 : x;
@@ -40,10 +46,11 @@ public final class SharedWaypoint {
         this.r = color >> 16 & 0xFF;
         this.g = color >> 8 & 0xFF;
         this.b = color & 0xFF;
-        this.enable = true;
+        this.enable = enabled;
         this.type = Type.Normal;
         this.origin = Origin.JourneyMap;
-        this.dimensions = new TreeSet<>(Collections.singleton(dimension));
+        this.dimensions = new TreeSet<>(dimensions);
+        this.dimensions.add(dimension);
         updateId();
     }
 
@@ -60,7 +67,11 @@ public final class SharedWaypoint {
     }
 
     public int getX() {
-        return isNetherWaypoint() ? x / 8 : x;
+        return getX(getPrimaryDimension());
+    }
+
+    public int getX(int dimension) {
+        return dimension == -1 ? x / 8 : x;
     }
 
     public int getY() {
@@ -68,7 +79,11 @@ public final class SharedWaypoint {
     }
 
     public int getZ() {
-        return isNetherWaypoint() ? z / 8 : z;
+        return getZ(getPrimaryDimension());
+    }
+
+    public int getZ(int dimension) {
+        return dimension == -1 ? z / 8 : z;
     }
 
     public int getColor() {
@@ -85,10 +100,6 @@ public final class SharedWaypoint {
 
     public int getPrimaryDimension() {
         return dimensions.first();
-    }
-
-    private boolean isNetherWaypoint() {
-        return dimensions.size() == 1 && dimensions.contains(-1);
     }
 
     private void updateId() {

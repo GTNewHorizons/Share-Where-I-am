@@ -38,9 +38,10 @@ public class WaypointMarker {
         GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
         GL11.glColor4d(255.0, 255.0, 255.0, 0.8);
 
+        int dimension = Minecraft.getMinecraft().thePlayer.dimension;
         GL11.glBegin(GL11.GL_QUADS);
         for (SharedWaypoint waypoint : transientBeacons) {
-            markWaypoint(waypoint);
+            markWaypoint(waypoint, dimension);
         }
         GL11.glEnd();
 
@@ -51,10 +52,10 @@ public class WaypointMarker {
         GL11.glPopAttrib();
     }
 
-    private static void markWaypoint(SharedWaypoint waypoint) {
-        double x = waypoint.getX();
+    private static void markWaypoint(SharedWaypoint waypoint, int dimension) {
+        double x = waypoint.getX(dimension);
         double y = waypoint.getY();
-        double z = waypoint.getZ();
+        double z = waypoint.getZ(dimension);
 
         // NORTH
         GL11.glVertex3d(x, y + 1, z);

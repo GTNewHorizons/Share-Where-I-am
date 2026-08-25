@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TreeSet;
 
 import javax.annotation.Nullable;
 
@@ -133,14 +134,23 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
         } catch (NumberFormatException ignored) {
             dimension = Minecraft.getMinecraft().thePlayer.dimension;
         }
+        TreeSet<Integer> dimensions = new TreeSet<>();
+        for (String value : waypoint.getDimensions()) {
+            try {
+                dimensions.add(Integer.parseInt(value));
+            } catch (NumberFormatException ignored) {}
+        }
+        BlockPos position = waypoint.getBlockPos();
         shareWaypoint(
                 new SharedWaypoint(
                         waypoint.getName(),
-                        waypoint.getX(),
-                        waypoint.getY(),
-                        waypoint.getZ(),
+                        position.getX(),
+                        position.getY(),
+                        position.getZ(),
                         waypoint.getColor(),
-                        dimension),
+                        dimension,
+                        waypoint.isEnabled(),
+                        dimensions),
                 additionalInformation);
     }
 
@@ -161,6 +171,9 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
                 persistent);
         converted.setColor(waypoint.getColor());
         converted.setEnabled(waypoint.isEnabled());
+        TreeSet<String> dimensions = new TreeSet<>();
+        for (Integer dimension : waypoint.getDimensions()) dimensions.add(String.valueOf(dimension));
+        converted.setDimensions(dimensions);
         converted.setShowOnMap(showOnMap);
         converted.setShowInWorld(true);
         converted.setShowBeacon(true);

@@ -17,6 +17,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class WaypointManager {
 
+    public static final long TRANSIENT_BEACON_DURATION = 3000L;
+
     private static SharedWaypoint tempBeacon = null;
     private static final Map<String, TransientBeacon> transientBeaconCache = new HashMap<>();
 
@@ -50,7 +52,8 @@ public class WaypointManager {
 
     public static List<SharedWaypoint> getTransientBeacons() {
         long currentTime = Minecraft.getSystemTime();
-        transientBeaconCache.entrySet().removeIf(entry -> currentTime - entry.getValue().start > 3000);
+        transientBeaconCache.entrySet()
+                .removeIf(entry -> currentTime - entry.getValue().start > TRANSIENT_BEACON_DURATION);
         return transientBeaconCache.values().stream().map(transientBeacon -> transientBeacon.waypoint)
                 .collect(Collectors.toList());
     }

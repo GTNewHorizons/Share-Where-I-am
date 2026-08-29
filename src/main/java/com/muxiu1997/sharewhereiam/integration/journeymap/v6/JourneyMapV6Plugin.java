@@ -18,6 +18,7 @@ import org.lwjgl.input.Keyboard;
 import com.muxiu1997.sharewhereiam.client.key.KeyBindings;
 import com.muxiu1997.sharewhereiam.integration.Mods;
 import com.muxiu1997.sharewhereiam.integration.journeymap.JourneyMapIntegration.SaveResult;
+import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
 import com.muxiu1997.sharewhereiam.localization.Lang;
 import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint;
@@ -45,10 +46,10 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
 
     private static final String MOD_ID = "sharewhereiam";
     private static final String TEMPORARY_GROUP_NAME = "Share Where I Am temporary";
-    private static final long TRANSIENT_BEACON_DURATION = 3000L;
 
     private static IClientAPI api;
     private static @Nullable Waypoint temporaryBeacon;
+    /** Client thread only: mutated through {@link WaypointManager} and pruned from the client tick. */
     private static final Map<String, TimedWaypoint> transientBeacons = new HashMap<>();
 
     private boolean shareKeyDown;
@@ -193,7 +194,7 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
         Iterator<TimedWaypoint> iterator = transientBeacons.values().iterator();
         while (iterator.hasNext()) {
             TimedWaypoint timed = iterator.next();
-            if (now - timed.start <= TRANSIENT_BEACON_DURATION) continue;
+            if (now - timed.start <= WaypointManager.TRANSIENT_BEACON_DURATION) continue;
             removeWaypoint(timed.waypoint);
             iterator.remove();
         }

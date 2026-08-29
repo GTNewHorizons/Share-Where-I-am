@@ -28,6 +28,8 @@ public final class SharedWaypoint {
     private Type type;
     private Origin origin;
     private TreeSet<Integer> dimensions;
+    /** Absent in JourneyMap 5 JSON and in waypoints shared by older clients. */
+    private Integer primaryDimension;
 
     @SuppressWarnings("unused")
     private SharedWaypoint() {}
@@ -51,6 +53,7 @@ public final class SharedWaypoint {
         this.origin = Origin.JourneyMap;
         this.dimensions = new TreeSet<>(dimensions);
         this.dimensions.add(dimension);
+        this.primaryDimension = dimension;
         updateId();
     }
 
@@ -99,7 +102,7 @@ public final class SharedWaypoint {
     }
 
     public int getPrimaryDimension() {
-        return dimensions.first();
+        return primaryDimension != null ? primaryDimension : dimensions.first();
     }
 
     private void updateId() {

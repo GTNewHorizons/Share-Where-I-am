@@ -209,17 +209,15 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
 
         WaypointGroup group = api.getWaypointGroupByName(MOD_ID, TEMPORARY_GROUP_NAME);
         if (group == null) {
-            group = WaypointFactory.createWaypointGroup(MOD_ID, TEMPORARY_GROUP_NAME);
-            group.setPersistent(false);
-            api.addWaypointGroup(group);
-            WaypointGroup registered = api.getWaypointGroup(group.getGuid());
-            if (!group.getGuid().equals(registered.getGuid())) return;
-            group = registered;
+            WaypointGroup created = WaypointFactory.createWaypointGroup(MOD_ID, TEMPORARY_GROUP_NAME);
+            created.setPersistent(false);
+            api.addWaypointGroup(created);
+            group = api.getWaypointGroup(created.getGuid());
         }
 
         api.addWaypoint(MOD_ID, waypoint);
         Waypoint added = api.getWaypoint(MOD_ID, waypoint.getGuid());
-        if (added != null) group.addWaypoint(added);
+        if (added != null && group != null) group.addWaypoint(added);
     }
 
     private static final class TimedWaypoint {

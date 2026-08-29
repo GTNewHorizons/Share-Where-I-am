@@ -24,6 +24,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class WaypointUtil {
 
+    private static final int WHITE_RGB = 0xFFFFFF;
+
     public static PlayerWaypoint waypointOfLocation() {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         SharedWaypoint waypoint = new SharedWaypoint(
@@ -31,7 +33,7 @@ public class WaypointUtil {
                 MathHelper.floor_double(player.posX),
                 MathHelper.floor_double(player.posY),
                 MathHelper.floor_double(player.posZ),
-                0xFFFFFF,
+                WHITE_RGB,
                 player.worldObj.provider.dimensionId);
         return new PlayerWaypoint(player, waypoint);
     }
@@ -44,7 +46,7 @@ public class WaypointUtil {
                 position.blockX,
                 position.blockY,
                 position.blockZ,
-                0xFFFFFF,
+                WHITE_RGB,
                 player.worldObj.provider.dimensionId);
         return new PlayerWaypoint(player, waypoint);
     }

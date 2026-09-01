@@ -3,7 +3,6 @@ package com.muxiu1997.sharewhereiam.integration.journeymap.v6;
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeSet;
@@ -190,14 +189,11 @@ public final class JourneyMapV6Plugin implements IClientPlugin {
     }
 
     private static void cleanupTransientBeacons() {
-        long now = Minecraft.getSystemTime();
-        Iterator<TimedWaypoint> iterator = transientBeacons.values().iterator();
-        while (iterator.hasNext()) {
-            TimedWaypoint timed = iterator.next();
-            if (now - timed.start <= WaypointManager.TRANSIENT_BEACON_DURATION) continue;
-            removeWaypoint(timed.waypoint);
-            iterator.remove();
+        long cutoff = Minecraft.getSystemTime() - WaypointManager.TRANSIENT_BEACON_DURATION;
+        for (TimedWaypoint timed : transientBeacons.values()) {
+            if (timed.start < cutoff) removeWaypoint(timed.waypoint);
         }
+        transientBeacons.values().removeIf(timed -> timed.start < cutoff);
     }
 
     private static void removeWaypoint(@Nullable Waypoint waypoint) {

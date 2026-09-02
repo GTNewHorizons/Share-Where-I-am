@@ -2,7 +2,10 @@ package com.muxiu1997.sharewhereiam.network;
 
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
+import net.minecraft.client.Minecraft;
+
 import com.muxiu1997.sharewhereiam.integration.Mods;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -54,7 +57,7 @@ public class MessageShareWaypoint implements IMessage {
         @Override
         public IMessage onMessage(MessageShareWaypoint message, MessageContext ctx) {
             if (ctx.side.isClient()) {
-                handleClientSideMessage(message);
+                Minecraft.getMinecraft().func_152344_a(() -> handleClientSideMessage(message));
             } else {
                 handleServerSideMessage(message);
             }
@@ -67,9 +70,7 @@ public class MessageShareWaypoint implements IMessage {
             if (Mods.JourneyMap.isLoaded()) {
                 WaypointUtil.addShareWaypointChat(
                         message.playerName,
-                        WaypointUtil.waypointFromString(message.waypointJson), // Dereferences JourneyMap class import
-                                                                               // to stop crashes on clients that don't
-                                                                               // have JourneyMap installed.
+                        SharedWaypoint.fromString(message.waypointJson),
                         message.additionalInformation);
             }
         }

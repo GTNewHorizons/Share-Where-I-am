@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.muxiu1997.sharewhereiam.client.key.KeyBindings;
 import com.muxiu1997.sharewhereiam.integration.Mods;
 import com.muxiu1997.sharewhereiam.localization.Lang;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint;
 import com.muxiu1997.sharewhereiam.util.VPWaypointUtil;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
 import journeymap.client.Constants;
-import journeymap.client.model.Waypoint;
 import journeymap.client.ui.component.JmUI;
 import journeymap.client.ui.fullscreen.Fullscreen;
 import journeymap.client.ui.fullscreen.MapChat;
@@ -40,10 +40,10 @@ public abstract class MixinFullscreen extends JmUI {
 
     @Inject(method = "func_73869_a", at = @At(value = "HEAD"), remap = false, require = 1, cancellable = true)
     private void inject_func_73869_a(CallbackInfo callbackInfo) {
-        if (!Mods.VisualProspecting.isLoaded()) return;
+        if (!Mods.VisualProspecting.isLoaded() || !Mods.Navigator.isLoaded()) return;
         if ((chat == null || chat.isHidden()) && Constants.isPressed(KeyBindings.WaypointShare)) {
             @Nullable
-            final Waypoint waypoint = VPWaypointUtil.getHoveredWaypoint();
+            final SharedWaypoint waypoint = VPWaypointUtil.getHoveredWaypoint();
             if (waypoint == null) return;
             final EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
             network.sendToServer(

@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
+import com.muxiu1997.sharewhereiam.integration.journeymap.v5.JourneyMapV5Integration;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 
 import journeymap.client.model.Waypoint;
 import journeymap.client.render.ingame.RenderWaypointBeacon;
@@ -40,14 +42,14 @@ public abstract class MixinRenderWaypointBeacon {
         skipFade = true;
         try {
             if (WaypointManager.hasActiveTempBeacon()) {
-                final Waypoint waypoint = WaypointManager.getTempBeacon();
+                final SharedWaypoint waypoint = WaypointManager.getTempBeacon();
                 assert waypoint != null;
                 if (waypoint.getDimensions().contains(mc.thePlayer.dimension)) {
-                    doRender(waypoint);
+                    doRender(JourneyMapV5Integration.toWaypoint(waypoint));
                 }
             }
-            for (Waypoint waypoint : WaypointManager.getTransientBeacons()) {
-                doRender(waypoint);
+            for (SharedWaypoint waypoint : WaypointManager.getTransientBeacons()) {
+                doRender(JourneyMapV5Integration.toWaypoint(waypoint));
             }
         } finally {
             skipFade = false;

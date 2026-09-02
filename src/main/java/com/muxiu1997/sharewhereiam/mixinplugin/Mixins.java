@@ -5,14 +5,15 @@ import javax.annotation.Nonnull;
 import com.gtnewhorizon.gtnhmixins.builders.IMixins;
 import com.gtnewhorizon.gtnhmixins.builders.MixinBuilder;
 import com.muxiu1997.sharewhereiam.integration.Mods;
+import com.muxiu1997.sharewhereiam.integration.journeymap.JourneyMapVersion;
 
 public enum Mixins implements IMixins {
 
     // spotless:off
-    JOURNEYMAP_INTEGRATION(new MixinBuilder()
+    JOURNEYMAP_V5_INTEGRATION(new MixinBuilder()
         .addRequiredMod(TargetedMod.JOURNEYMAP)
         .setPhase(Phase.LATE)
-        .setApplyIf(Mods.JourneyMap::isLoaded)
+        .setApplyIf(() -> JourneyMapVersion.get() == JourneyMapVersion.V5)
         .addClientMixins(
             "journeymap.MixinFullscreen",
             "journeymap.MixinRenderWaypointBeacon",

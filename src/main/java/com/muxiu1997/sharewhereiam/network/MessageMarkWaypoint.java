@@ -2,7 +2,10 @@ package com.muxiu1997.sharewhereiam.network;
 
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
 
+import net.minecraft.client.Minecraft;
+
 import com.muxiu1997.sharewhereiam.integration.journeymap.WaypointManager;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 import com.muxiu1997.sharewhereiam.util.WaypointUtil;
 
 import cpw.mods.fml.common.network.ByteBufUtils;
@@ -12,7 +15,6 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
-import journeymap.client.model.Waypoint;
 
 public class MessageMarkWaypoint implements IMessage {
 
@@ -48,7 +50,7 @@ public class MessageMarkWaypoint implements IMessage {
         public IMessage onMessage(MessageMarkWaypoint message, MessageContext ctx) {
             switch (ctx.side) {
                 case CLIENT:
-                    handleClientSideMessage(message);
+                    Minecraft.getMinecraft().func_152344_a(() -> handleClientSideMessage(message));
                     break;
                 case SERVER:
                     handleServerSideMessage(message);
@@ -59,7 +61,7 @@ public class MessageMarkWaypoint implements IMessage {
 
         @SideOnly(Side.CLIENT)
         private void handleClientSideMessage(MessageMarkWaypoint message) {
-            WaypointManager.addTransientBeacon(message.playerName, Waypoint.fromString(message.waypointJson));
+            WaypointManager.addTransientBeacon(message.playerName, SharedWaypoint.fromString(message.waypointJson));
         }
 
         private void handleServerSideMessage(MessageMarkWaypoint message) {

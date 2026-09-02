@@ -6,12 +6,10 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
 
 import com.muxiu1997.sharewhereiam.command.base.CommandWaypointBase;
+import com.muxiu1997.sharewhereiam.integration.journeymap.JourneyMapIntegration;
+import com.muxiu1997.sharewhereiam.integration.journeymap.JourneyMapIntegration.SaveResult;
 import com.muxiu1997.sharewhereiam.localization.Lang;
-import com.muxiu1997.sharewhereiam.mixinplugin.interfaces.IMixinWaypointStore;
-
-import journeymap.client.model.Waypoint;
-import journeymap.client.ui.UIManager;
-import journeymap.client.waypoint.WaypointStore;
+import com.muxiu1997.sharewhereiam.model.SharedWaypoint;
 
 public class CommandWaypointSave extends CommandWaypointBase {
 
@@ -27,18 +25,19 @@ public class CommandWaypointSave extends CommandWaypointBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         ensureArgsLength(args, 1, 2);
-        final Waypoint waypoint = parseWaypoint(args[0]);
+        final SharedWaypoint waypoint = parseWaypoint(args[0]);
         boolean openWaypointEditor = parseOpenWaypointEditor(sender, args);
-        if (openWaypointEditor) {
-            UIManager.getInstance().openWaypointEditor(waypoint, true, null);
-            return;
-        }
-        if (((IMixinWaypointStore) WaypointStore.instance()).exists(waypoint)) {
+        SaveResult result = JourneyMapIntegration.saveWaypoint(waypoint, openWaypointEditor);
+        if (result == SaveResult.EDITOR_OPENED) return;
+        if (result == SaveResult.EXISTS) {
             sender.addChatMessage(new ChatComponentText(Lang.SAVE_WAYPOINT_EXISTS.translate()));
             return;
         }
-        WaypointStore.instance().save(waypoint);
-        sender.addChatMessage(new ChatComponentText(Lang.SAVE_WAYPOINT_SUCCESS.translate()));
+        if (result == SaveResult.SAVED) {
+            sender.addChatMessage(new ChatComponentText(Lang.SAVE_WAYPOINT_SUCCESS.translate()));
+            return;
+        }
+        throw getCommandException();
     }
 
     private boolean parseOpenWaypointEditor(ICommandSender sender, String[] args) throws CommandException {

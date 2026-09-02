@@ -1,6 +1,8 @@
 # Share Where I am
 
-`Share Where I am` is a mod for Minecraft 1.7.10 + JourneyMap. It allows you to share your waypoint/location with other players.
+`Share Where I am` is a mod for Minecraft 1.7.10 + JourneyMap 5 or JourneyMap 6. It allows you to share your waypoint/location with other players.
+
+JourneyMap 5 support uses its legacy client integration. JourneyMap 6 support uses the JourneyMap v2 plugin API for saving waypoints, temporary beacons, and fullscreen waypoint actions.
 
 🚨 Requires UniMixins as a dependency 🚨
 
@@ -32,6 +34,8 @@ you can share your existing `Waypoint` in your `Waypoint Manager` :
 
 _<kbd>Share</kbd> button in the `Waypoint Manager` screen_
 
+On JourneyMap 6, right-click a waypoint on the fullscreen map and choose <kbd>Share</kbd>. JourneyMap 6 already provides some sharing UI of its own.
+
 ------
 
 
@@ -44,7 +48,7 @@ _<kbd>Share</kbd> button in the `Waypoint Manager` screen_
    </details>
 
 
-2. Or save after editing (click `[EDIT]`)
+2. Or save after editing (click `[EDIT]`, JourneyMap 5 only; the JourneyMap 6 API does not expose its waypoint editor)
 
    <details>
     <summary>Images</summary>
